@@ -1,0 +1,35 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-icon-button>
+      <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+    </button>
+    <a class="main-link" [routerLink]="'/'"><h1>AuthSys</h1></a>
+    <span class="menu-spacer"></span>
+    <div>
+      <a *ngIf="authService.loggedIn()" mat-button [routerLink]="'/home'"> Home </a>
+      <a *ngIf="!authService.loggedIn()" mat-button [routerLink]="'/auth/login'"> Login </a>
+      <a *ngIf="!authService.loggedIn()" mat-button [routerLink]="'/auth/register'"> Register </a>
+      <a *ngIf="authService.loggedIn()" mat-button [routerLink]="'/auth/register'" (click)="authService.logoutUser()"> Logout </a>
+      
+      
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav>
+    <mat-nav-list>
+
+      <a *ngIf="authService.loggedIn()" mat-list-item [routerLink]="'/home'">Home</a>
+      <a *ngIf="!authService.loggedIn()" mat-list-item [routerLink]="'/auth/login'"> Login </a>
+      <a *ngIf="!authService.loggedIn()" mat-list-item [routerLink]="'/auth/register'"> Register </a>
+      <a mat-list-item (click)="sidenav.toggle()" href="" mat-list-item>Close</a>
+
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div style="height: 88vh;">
+
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
